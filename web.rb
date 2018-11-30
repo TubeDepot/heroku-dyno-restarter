@@ -13,9 +13,10 @@ end
 
 post '/webhook' do
   p params
+  binding.pry
   return bad_request('invalid api token') unless params[:token] == ENV['APP_API_TOKEN']
   return bad_request('invalid payload') unless params[:payload]
-  
+
   restart_all = !!params[:restart_all]
   payload     = JSON.parse(params[:payload]||'{}')
   events      = payload.dig('events')

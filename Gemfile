@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'redis'
 gem 'platform-api'
 gem 'thin'
+gem 'pry'
 
 group :development do
   gem 'foreman'
