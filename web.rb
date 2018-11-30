@@ -2,6 +2,7 @@ require 'sinatra'
 require 'json'
 require 'redis'
 require 'platform-api'
+require 'pry'
 
 REDIS  = Redis.new(url: ENV['REDIS_URL'] || ENV["REDISCLOUD_URL"])
 HEROKU = PlatformAPI.connect(ENV['HEROKU_API_KEY'])
