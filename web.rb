@@ -2,7 +2,6 @@ require 'sinatra'
 require 'json'
 require 'redis'
 require 'platform-api'
-require 'pry'
 
 REDIS  = Redis.new(url: ENV['REDIS_URL'] || ENV["REDISCLOUD_URL"])
 HEROKU = PlatformAPI.connect(ENV['HEROKU_API_KEY'])
@@ -14,14 +13,13 @@ end
 
 post '/webhook' do
   p params
-  binding.pry
   return bad_request('invalid api token') unless params[:token] == ENV['APP_API_TOKEN']
   return bad_request('invalid payload') unless params[:payload]
 
   restart_all = !!params[:restart_all]
   payload     = JSON.parse(params[:payload]||'{}')
   events      = payload.dig('events')
-
+  p events
   return bad_request('no events') unless events
 
   logger.info "[webhook events] #{events}"
